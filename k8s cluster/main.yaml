@@ -1,0 +1,5 @@
+---
+- name: Restart containerd
+  hosts: all
+  roles:
+  - chiheb_k8s

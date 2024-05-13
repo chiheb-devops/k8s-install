@@ -1,0 +1,19 @@
+---
+# vars file for chiheb_k8s
+K8s_version: 1.28.0
+packages:
+  - name: containerd
+  - name: apt-transport-https
+  - name: curl
+add_packages:
+  - name: ca-certificates 
+  - name: gpg
+packages_k8s:
+  - name: kubectl
+  - name: kubelet
+  - name: kubeadm
+repository_key_k8s: "https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key"
+network_address_pod: "10.10.0.0/16"
+API_server: "192.168.10.1"
+username: "chiheb"
+calico_github: "https://docs.projectcalico.org/manifests/calico.yaml"

@@ -1,0 +1,8 @@
+---
+
+  
+- name: install kubernetes
+  import_tasks: 6_join_cluster.yaml
+
+ 
+

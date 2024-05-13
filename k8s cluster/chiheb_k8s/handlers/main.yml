@@ -1,0 +1,7 @@
+---
+# handlers file for chiheb_k8s
+- name: Restart containerd
+  service: 
+    name: containerd
+    state: restarted
+    enabled: True
