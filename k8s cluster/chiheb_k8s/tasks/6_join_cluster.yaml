@@ -10,14 +10,14 @@
          join_command: "{{ join_command_raw.stdout_lines[0] }}"
 
     - name: Enable TCP port 6443 (On Master) is able to connect from Worker
-      hosts: worker_node
+      hosts: worker
       tasks:
        wait_for: "host=master port=6443 timeout=1"
 
     - name: Join worker to cluster
-      hosts: worker_node
+      hosts: worker
       tasks:
        shell: "{{ master.join_command }} >> node_joined.log"
        args:
-         chdir: /home/chiheb
+         chdir: /home/ubuntu
          creates: node_joined.log
