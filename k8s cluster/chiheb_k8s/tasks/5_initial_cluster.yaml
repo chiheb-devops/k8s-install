@@ -1,4 +1,6 @@
 ---
+- hosts: master
+  tasks:
     - name: Ensure that .kube directory exists
       file:
        path: /home/{{ username }}/.kube
@@ -43,7 +45,7 @@
 
     - name: Create .kube directory
       become: yes
-      become_user: chiheb
+      become_user: ubuntu
       file:
         path: $HOME/.kube
         state: directory
@@ -65,4 +67,5 @@
       args:
         chdir: $HOME
         creates: pod_network_setup.log
+
 
