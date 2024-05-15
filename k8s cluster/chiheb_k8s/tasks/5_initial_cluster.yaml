@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: master_node
   tasks:
     - name: Ensure that .kube directory exists
       file:
@@ -56,7 +56,7 @@
         src: /etc/kubernetes/admin.conf
         dest: /home/ubuntu/.kube/config
         remote_src: yes
-        owner: ubunt
+        owner: ubuntu
 
 
 
