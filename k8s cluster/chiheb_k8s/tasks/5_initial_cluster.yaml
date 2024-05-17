@@ -1,18 +1,18 @@
 ---
-- hosts: master_node
-  tasks:
     - name: Ensure that .kube directory exists
       file:
        path: /home/{{ username }}/.kube
        recurse: yes
        state: directory
-   
+      when: inventory_hostname == "master_node"
     - name: Create an Empty file for Kubeadm configuring
       copy:
         content: ""
         dest: /etc/kubernetes/kubeadm-config.yaml
         force: no
-        
+      when: inventory_hostname == "master_node"
+ 
+     
     - name: Configure container runtime
       blockinfile:
         path: /etc/kubernetes/kubeadm-config.yaml
@@ -34,12 +34,14 @@
             memory: 50M
           enforceNodeAllocatable:
           - pods
+      when: inventory_hostname == "master_node"
 
     - name: Initialize the cluster
       shell: kubeadm init --config /etc/kubernetes/kubeadm-config.yaml >> cluster_initialized.log
       args:
         chdir: /home/ubuntu
         creates: cluster_initialized.log
+      when: inventory_hostname == "master_node"
 
 
 
@@ -50,6 +52,7 @@
         path: $HOME/.kube
         state: directory
         mode: 0755
+      when: inventory_hostname == "master_node"
 
     - name: Copy admin.conf to User's kube config
       copy:
@@ -57,6 +60,7 @@
         dest: /home/ubuntu/.kube/config
         remote_src: yes
         owner: ubuntu
+      when: inventory_hostname == "master_node"
 
 
 
@@ -67,5 +71,6 @@
       args:
         chdir: $HOME
         creates: pod_network_setup.log
+      when: inventory_hostname == "master_node"
 
 
