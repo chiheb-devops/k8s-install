@@ -359,7 +359,6 @@ spec:
       containers:
       - name: user-db
         image: docker.io/mosuke5/sockshop-user-db@sha256:7633a123fe2a1e6191fd37cad6d4f07bfb2acdc3a634e27c226df3ae21357da0
-        image: docker.io/centos/mongodb-34-centos7
         ports:
         - name: mongo
           containerPort: 27017
