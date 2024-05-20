@@ -1,8 +1,14 @@
 ---
-
-  
+- name: disabling swap
+  import_tasks: 1_swap_disable.yaml
+- name: install k8s modules
+  import_tasks: 2_k8s_modules.yaml
+- name: install containerd
+  import_tasks: 3_install_containerd.yaml
 - name: install kubernetes
-  import_tasks: 6_join_cluster.yaml
+  import_tasks: 4_install_k8s.yaml
+- name: initial cluster
+  import_tasks: 5_initial_cluster.yaml
 
  
 
