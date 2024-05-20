@@ -4,4 +4,4 @@
 master
 
 [worker_node]
-worker ansible_host=192.168.100.14
+worker
