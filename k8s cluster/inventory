@@ -1,7 +1,7 @@
 #Hosts
 
 [master_node]
-master
+master ansible_host=
 
 [worker_node]
-worker
+worker ansible_host=
