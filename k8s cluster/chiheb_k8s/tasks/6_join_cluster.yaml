@@ -1,13 +1,33 @@
 ---
     - name: Get join token for worker node
       register: join_token_output
-      shell: kubeadm token create --print-join-command
+      shell: echo $(kubeadm token create --print-join-command) > /join.sh
       when: inventory_hostname == "master"
-    - name: Set fact for join token
-      set_fact:
-        join_token: "{{ join_token_output.stdout }}"
-      when: inventory_hostname == "master"
-    - name: Join the worker node to the cluster
-      command: kubeadm join {{ master_ip }}:6443 --token {{ join_token }} --discovery-token-unsafe-skip-ca-verification
-      when: inventory_hostname == "worker"
+  - name: copy of generated join file from first cp to automation node
+  fetch:
+    src: /cpjoincluster.sh
+    dest: /home/{{ username }}/
+    flat: yes
+  when: inventory_hostname == "master"
+
+- name: copy join command to other control plane
+  copy:
+    src: /home/{{ username }}/cpjoincluster.sh
+    dest: /cpjoincluster.sh
+    mode: '0755'
+  when: inventory_hostname == "worker"
+
+- name: Executing of join command
+  shell: /./cpjoincluster.sh
+  when: inventory_hostname == "worker"
+
+- name: Copy configuration for regular user
+  copy:
+    dest: /home/{{ username }}/.kube/config
+    remote_src: yes
+    src: /etc/kubernetes/admin.conf
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: inventory_hostname == "worker"
+
 
