@@ -9,6 +9,7 @@
   import_tasks: 4_install_k8s.yaml
 - name: initial cluster
   import_tasks: 5_initial_cluster.yaml
-
+- name: join cluster
+  import_tasks: 6_join_cluster.yaml
  
 
