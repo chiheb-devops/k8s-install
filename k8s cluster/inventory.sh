@@ -1,8 +1,5 @@
 #!/bin/bash
 
-export cp01=$(cat /home/ubuntu/ip.txt)
-export cp02=$(cat /home/ubuntu/worker.txt)
-echo -e  "[master_node] 
-master ansible_host=$cp01 
- [worker_node] 
-worker ansible_host=$cp02"> inventory
+export master=$(cat /home/ubuntu/master)
+export worker=$(cat /home/ubuntu/worker)
+echo -e  "[master_node] \n master ansible_host=$master ansible_ssh_private_key_file=pfe-key.pem \n[worker_node] worker ansible_host=$worker ansible_ssh_private_key_file=pfe-key.pem \n\n" > inventory
