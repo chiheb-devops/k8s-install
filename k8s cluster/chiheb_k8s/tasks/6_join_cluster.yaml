@@ -28,6 +28,6 @@
     src: /etc/kubernetes/admin.conf
     owner: "{{ username }}"
     group: "{{ username }}"
-  when: inventory_hostname == "worker"
+  when: inventory_hostname == "master"
 
 
